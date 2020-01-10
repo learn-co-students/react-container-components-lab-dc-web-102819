@@ -29,7 +29,13 @@ class SearchableMovieReviewsContainer extends Component {
 		const queryURL = URL + `&query=${this.state.searchValue}`
 		fetch(queryURL)
 			.then(response => response.json())
-			.then(json => this.setState({searchResults: json.results}))
+			.then(json => {
+				if (json.results.length === 0) {
+					alert("No results found for that search, please try again.")
+				} else {
+					this.setState({searchResults: json.results})
+				}
+			})
 	}
 	
 	render() {
